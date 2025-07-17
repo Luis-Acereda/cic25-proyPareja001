@@ -10,4 +10,6 @@ public class ProyPareja001Application {
 		SpringApplication.run(ProyPareja001Application.class, args);
 	}
 
+	
+
 }
