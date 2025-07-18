@@ -6,8 +6,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Libro")
 public class Libro {
 
     @Id
@@ -64,7 +66,7 @@ public class Libro {
             return false;
         return true;
     }
-    
+
     @Override
     public int hashCode() {
         // TODO Auto-generated method stub

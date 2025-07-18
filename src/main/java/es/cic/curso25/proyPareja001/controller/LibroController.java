@@ -18,31 +18,19 @@ import es.cic.curso25.proyPareja001.model.Libro;
 import es.cic.curso25.proyPareja001.service.LibroService;
 
 @RestController
-@RequestMapping(path = "/libro")
+@RequestMapping("/libro")
 public class LibroController {
 
     @Autowired
     LibroService libroService;
 
     @PostMapping
-    public long create(@PathVariable Libro libro) {
-
+    public long create(Libro libro) {
         if (libro.getId() != 0) {
             throw new LibroIdException("Al crear no me puedes pasar id");
         }
-        this.libroService = null;
 
         return libroService.create(libro);  
-    }
-
-    @PutMapping()
-    public void update(@PathVariable Libro libro) {
-        libroService.update(libro);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteLibroById(@PathVariable long id) {
-        libroService.delete(id);
     }
 
     @GetMapping()
@@ -55,4 +43,13 @@ public class LibroController {
         return libroService.getById(id);
     }
 
+    @PutMapping()
+    public void update(@PathVariable Libro libro) {
+        libroService.update(libro);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteLibroById(@PathVariable long id) {
+        libroService.delete(id);
+    }
 }
