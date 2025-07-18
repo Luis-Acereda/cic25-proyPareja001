@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.cic.curso25.proyPareja001.Exeptions.LibroIDExeption;
+import es.cic.curso25.proyPareja001.exception.LibroIdException;
 import es.cic.curso25.proyPareja001.model.Libro;
 import es.cic.curso25.proyPareja001.service.LibroService;
 
@@ -21,33 +21,28 @@ import es.cic.curso25.proyPareja001.service.LibroService;
 @RequestMapping(path = "/libro")
 public class LibroController {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(LibroController.class);
-
     @Autowired
     LibroService libroService;
 
     @PostMapping
     public long create(@PathVariable Libro libro) {
 
-        if (libro.getId() != null) {
-            throw new LibroIDExeption("Al crear no me puedes pasar id");
+        if (libro.getId() != 0) {
+            throw new LibroIdException("Al crear no me puedes pasar id");
         }
         this.libroService = null;
 
-        return libroService.create(libro);
+        return libroService.create(libro);  
     }
 
     @PutMapping()
     public void update(@PathVariable Libro libro) {
-        if (libro.getId() != null) {
-            throw new LibroIDExeption("Al crear no me puedes pasar id");
-        }
         libroService.update(libro);
     }
 
     @DeleteMapping("/{id}")
     public void deleteLibroById(@PathVariable long id) {
-        libroService.delete(Long.valueOf(id));
+        libroService.delete(id);
     }
 
     @GetMapping()
@@ -57,7 +52,7 @@ public class LibroController {
 
     @GetMapping("/{id}")
     public Libro getLibroById(@PathVariable long id) {
-        return libroService.getById(Long.valueOf(id));
+        return libroService.getById(id);
     }
 
 }
