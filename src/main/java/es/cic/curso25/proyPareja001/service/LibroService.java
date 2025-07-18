@@ -3,12 +3,12 @@ package es.cic.curso25.proyPareja001.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.cic.curso25.proyPareja001.repository.OrmRepository;
+import es.cic.curso25.proyPareja001.repository.LibroRepository;
 
 @Service
-public class OrmService {
+public class LibroService {
 
     @Autowired
-    OrmRepository ormRepository;
+    LibroRepository libroRepository;
 
 }

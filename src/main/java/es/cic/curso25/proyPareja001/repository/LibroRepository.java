@@ -3,9 +3,9 @@ package es.cic.curso25.proyPareja001.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import es.cic.curso25.proyPareja001.ORM.Orm;
+import es.cic.curso25.proyPareja001.model.Libro;
 
 @Repository
-public interface OrmRepository extends JpaRepository<Orm, Long> {
+public interface LibroRepository extends JpaRepository<Libro, Long> {
 
 }
