@@ -20,19 +20,22 @@ public class LibroService {
         return libro.getId();
     }
 
-    public Libro getById(long id){
+    public Libro getById(long id) {
         Optional<Libro> resultado = libroRepository.findById(id);
         return resultado.orElse(null);
     }
-    public List<Libro> getAll(){
+
+    public List<Libro> getAll() {
         return libroRepository.findAll();
     }
 
-    public void update(Libro Libro){
-        libroRepository.save(Libro);
+    public void update(Libro Libro) {
+        Libro tmp = Libro;
+        this.delete(Libro.getId());
+        libroRepository.save(tmp);
     }
 
-    public void delete(long id){
+    public void delete(long id) {
         libroRepository.deleteById(id);
     }
 
