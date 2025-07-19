@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,12 +26,12 @@ public class LibroController {
     LibroService libroService;
 
     @PostMapping
-    public long create(Libro libro) {
-        if (libro.getId() != 0) {
+    public Long create(@RequestBody Libro libro) {
+        if (libro.getId() != null) {
             throw new LibroIdException("Al crear no me puedes pasar id");
         }
 
-        return libroService.create(libro);  
+        return libroService.create(libro);
     }
 
     @GetMapping()
@@ -40,16 +41,16 @@ public class LibroController {
 
     @GetMapping("/{id}")
     public Libro getLibroById(@PathVariable long id) {
-        return libroService.getById(id);
+        return libroService.getById(Long.valueOf(id));
     }
 
     @PutMapping()
-    public void update(@PathVariable Libro libro) {
+    public void update(@RequestBody Libro libro) {
         libroService.update(libro);
     }
 
     @DeleteMapping("/{id}")
     public void deleteLibroById(@PathVariable long id) {
-        libroService.delete(id);
+        libroService.delete(Long.valueOf(id));
     }
 }

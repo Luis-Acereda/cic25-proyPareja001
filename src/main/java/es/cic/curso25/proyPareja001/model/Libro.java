@@ -2,6 +2,8 @@ package es.cic.curso25.proyPareja001.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,22 +16,25 @@ public class Libro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String titulo;
     private String autor;
+    
     private LocalDate fechaPublicacion;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(long id) {
+
+    public void setId(Long id) {
         this.id = id;
     }
 
     public String getTitulo() {
         return titulo;
     }
+
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
@@ -37,6 +42,7 @@ public class Libro {
     public String getAutor() {
         return autor;
     }
+
     public void setAutor(String autor) {
         this.autor = autor;
     }
@@ -44,13 +50,15 @@ public class Libro {
     public LocalDate getFechaPublicacion() {
         return fechaPublicacion;
     }
+
     public void setFechaPublicacion(LocalDate fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
     }
 
     @Override
     public String toString() {
-        return "Libro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", fechaPublicacion=" + fechaPublicacion + "]";
+        return "Libro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", fechaPublicacion=" + fechaPublicacion
+                + "]";
     }
 
     @Override
@@ -69,7 +77,6 @@ public class Libro {
 
     @Override
     public int hashCode() {
-        // TODO Auto-generated method stub
         return super.hashCode();
     }
 }

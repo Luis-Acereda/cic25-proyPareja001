@@ -19,12 +19,12 @@ public class LibroService {
     @Autowired
     LibroRepository libroRepository;
 
-    public long create(Libro libro) {
+    public Long create(Libro libro) {
         libroRepository.save(libro);
         return libro.getId();
     }
 
-    public Libro getById(long id) {
+    public Libro getById(Long id) {
         LOGGER.info("Get Libro with id " + id);
         Optional<Libro> resultado = libroRepository.findById(id);
         return resultado.orElse(null);
@@ -35,12 +35,11 @@ public class LibroService {
     }
 
     public void update(Libro Libro) {
-        Libro tmp = Libro;
-        this.delete(Libro.getId());
-        libroRepository.save(tmp);
+        libroRepository.save(Libro);
+      
     }
 
-    public void delete(long id) {
+    public void delete(Long id) {
         libroRepository.deleteById(id);
     }
 
