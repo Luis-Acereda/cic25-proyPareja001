@@ -122,6 +122,24 @@ public class LibroControllerIntegrationTest {
     }
 
     @Test
+    void testCreateIntentandoModificar() throws Exception {
+
+        Libro libro = new Libro();
+        libro.setId(4l);
+        libro.setTitulo("La Vida");
+        libro.setAutor("Miguel de Cervantes");
+        libro.setFechaPublicacion(null);
+
+        String libroJson = objectMapper.writeValueAsString(libro);
+
+        mockMvc.perform(post("/libro")
+                .contentType("application/json")
+                .content(libroJson))
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
     void testDeleteLibroById() throws Exception {
         Libro libro = new Libro();
         libro.setTitulo("La Vida");
