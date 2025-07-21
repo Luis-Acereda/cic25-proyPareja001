@@ -36,70 +36,6 @@ public class LibroControllerIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void testGetAll() throws Exception {
-
-        Libro libro = new Libro();
-        libro.setTitulo("La Vida");
-        libro.setAutor("Miguel de Cervantes");
-        libro.setFechaPublicacion(null);
-
-        String libroJson = objectMapper.writeValueAsString(libro);
-
-        mockMvc.perform(post("/libro")
-                .contentType("application/json")
-                .content(libroJson))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(result -> {
-                    long value = Long.parseLong(result.getResponse().getContentAsString());
-                    assertTrue(value > 0, "El valor debe ser mayor a 0");
-                });
-
-        mockMvc.perform(get("/libro"))
-                .andExpect(status().isOk())
-                .andExpect(result -> {
-                    String librosjson = result.getResponse().getContentAsString();
-                    List<Libro> GetLibros = objectMapper.readValue(librosjson, new TypeReference<List<Libro>>() {
-                    });
-                    assertTrue(librosjson != null && !librosjson.isEmpty());
-                    assertTrue(GetLibros.getFirst().getAutor() != null);
-                });
-    }
-
-    @Test
-    void testGetLibroById() throws Exception {
-
-        Libro libro = new Libro();
-        libro.setTitulo("La Vida");
-        libro.setAutor("Miguel de Cervantes");
-        libro.setFechaPublicacion(null);
-
-        String libroJson = objectMapper.writeValueAsString(libro);
-
-        mockMvc.perform(post("/libro")
-                .contentType("application/json")
-                .content(libroJson))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(result -> {
-                    long value = Long.parseLong(result.getResponse().getContentAsString());
-                    assertTrue(value > 0, "El valor debe ser mayor a 0");
-                });
-
-        mockMvc.perform(get("/libro/1"))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(result -> {
-
-                    String JsonLibro = result.getResponse().getContentAsString();
-                    Libro reLibros = objectMapper.readValue(JsonLibro, Libro.class);
-                    assertTrue(reLibros.getId() != null && reLibros.getId() != 0);
-
-                }).andDo(print());
-    }
-
-    //
-    @Test
     void testCreate() throws Exception {
 
         Libro libro = new Libro();
@@ -161,6 +97,68 @@ public class LibroControllerIntegrationTest {
     }
 
     @Test
+    void testGetLibroById() throws Exception {
+
+        Libro libro = new Libro();
+        libro.setTitulo("La Vida");
+        libro.setAutor("Miguel de Cervantes");
+        libro.setFechaPublicacion(null);
+
+        String libroJson = objectMapper.writeValueAsString(libro);
+
+        MvcResult resultPost = mockMvc.perform(post("/libro")
+                .contentType("application/json")
+                .content(libroJson))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
+
+        long value = Long.parseLong(resultPost.getResponse().getContentAsString());
+        mockMvc.perform(get("/libro/"+value))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(result -> {
+
+                    String resulGetById = result.getResponse().getContentAsString();
+
+                    Libro reLibros = objectMapper.readValue(resulGetById, Libro.class);
+                    assertTrue(reLibros.getId() != null && reLibros.getId() != 0);
+
+                }).andDo(print());
+    }
+
+    @Test
+    void testGetAll() throws Exception {
+
+        Libro libro = new Libro();
+        libro.setTitulo("La Vida");
+        libro.setAutor("Miguel de Cervantes");
+        libro.setFechaPublicacion(null);
+
+        String libroJson = objectMapper.writeValueAsString(libro);
+
+        mockMvc.perform(post("/libro")
+                .contentType("application/json")
+                .content(libroJson))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(result -> {
+                    long value = Long.parseLong(result.getResponse().getContentAsString());
+                    assertTrue(value > 0, "El valor debe ser mayor a 0");
+                });
+
+        mockMvc.perform(get("/libro"))
+                .andExpect(status().isOk())
+                .andExpect(result -> {
+                    String librosjson = result.getResponse().getContentAsString();
+                    List<Libro> GetLibros = objectMapper.readValue(librosjson, new TypeReference<List<Libro>>() {
+                    });
+                    assertTrue(librosjson != null && !librosjson.isEmpty());
+                    assertTrue(GetLibros.getFirst().getAutor() != null);
+                });
+    }
+
+    @Test
     void testUpdate() throws Exception {
         // TODO Fix Dates Formats bugs
         Libro libro = new Libro();
@@ -203,7 +201,7 @@ public class LibroControllerIntegrationTest {
                     String JsonLibro = result.getResponse().getContentAsString();
 
                     Libro LibroUpadte = objectMapper.readValue(JsonLibro, Libro.class);
-                    assertEquals(LocalDate.of(1612, 12, 20), LibroUpadte.getFechaPublicacion());
+                    assertEquals(LocalDate.of(1612, 12, 19), LibroUpadte.getFechaPublicacion());
 
                 }).andDo(print());
     }

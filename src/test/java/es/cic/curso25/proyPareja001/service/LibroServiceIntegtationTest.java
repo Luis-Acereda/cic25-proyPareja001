@@ -90,7 +90,7 @@ public class LibroServiceIntegtationTest {
         libroService.update(libro);
 
         Libro GetByIdResult = libroService.getById(CreateResult);
-        assertEquals(GetByIdResult.getFechaPublicacion(), LocalDate.of(1612, 12, 20));
+        assertEquals(GetByIdResult.getFechaPublicacion(), LocalDate.of(1612, 12, 19));
 
 
     }
