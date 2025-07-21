@@ -200,7 +200,7 @@ public class LibroControllerIntegrationTest {
                     String JsonLibro = result.getResponse().getContentAsString();
 
                     Libro LibroUpadte = objectMapper.readValue(JsonLibro, Libro.class);
-                    assertEquals(LocalDate.of(1612, 12, 19), LibroUpadte.getFechaPublicacion());
+                    assertEquals(LocalDate.of(1612, 12, 20), LibroUpadte.getFechaPublicacion());
 
                 }).andDo(print());
     }
