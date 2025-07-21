@@ -114,7 +114,7 @@ public class LibroControllerIntegrationTest {
                 .andReturn();
 
         long value = Long.parseLong(resultPost.getResponse().getContentAsString());
-        mockMvc.perform(get("/libro/"+value))
+        mockMvc.perform(get("/libro/" + value))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(result -> {
@@ -168,17 +168,16 @@ public class LibroControllerIntegrationTest {
 
         String libroJson = objectMapper.writeValueAsString(libro);
 
-        mockMvc.perform(post("/libro")
+        MvcResult resultPost = mockMvc.perform(post("/libro")
                 .contentType("application/json")
                 .content(libroJson))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(result -> {
-                    long value = Long.parseLong(result.getResponse().getContentAsString());
-                    assertTrue(value > 0, "El valor debe ser mayor a 0");
-                });
+                .andReturn();
 
-        MvcResult mvcResult = mockMvc.perform(get("/libro/1"))
+        long value = Long.parseLong(resultPost.getResponse().getContentAsString());
+
+        MvcResult mvcResult = mockMvc.perform(get("/libro/" + value))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn();
@@ -194,7 +193,7 @@ public class LibroControllerIntegrationTest {
                 .content(libroJson))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get("/libro/1"))
+        mockMvc.perform(get("/libro/"+value))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(result -> {
